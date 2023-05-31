@@ -73,7 +73,7 @@ public class Triangle extends TwoDShape implements Rotate{
                 "\nSide 2: " + side2 +
                 "\nSide 3: " + side3 +
                 "\nHeron's Height: " + heronsHeight() +
-                "\nColour: " + colour;
+                "\nColour: " + colour.getName();
     }
 
     @Override

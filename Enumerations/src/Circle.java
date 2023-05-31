@@ -25,6 +25,6 @@ public class Circle extends TwoDShape{
     public String toString() {
         return super.toString() +
                 "\nRadius: " + radius +
-                "\nColour: " + colour;
+                "\nColour: " + colour.getName();
     }
 }
