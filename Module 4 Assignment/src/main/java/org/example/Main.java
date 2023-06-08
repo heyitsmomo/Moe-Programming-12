@@ -16,6 +16,10 @@ public class Main {
     private static final String DATABASE_URL = "jdbc:derby:mydb;create=true";
     private static final String TABLE_NAME = "NEW_DATA";
 
+    /**
+     * MAIN METHOD
+     * @param args not used
+     */
     public static void main(String[] args) {
         try {
             createTableInDatabase();
@@ -26,6 +30,10 @@ public class Main {
         }
     }
 
+    /**
+     * CREATING TABLE IN THE DATABASE
+     * @throws SQLException incase errors occur when creating the table
+     */
     private static void createTableInDatabase() throws SQLException {
         String sql = generateCreateTableQuery();
         try (Connection connection = DriverManager.getConnection(DATABASE_URL);
@@ -35,6 +43,10 @@ public class Main {
         }
     }
 
+    /**
+     * INSERTING DATA INTO THE DATABASE
+     * @throws SQLException incase errors occur while inserting the data
+     */
     private static void insertDataIntoDatabase() throws SQLException {
         String csvFile = "/Users/moe/IdeaProjects/Module 4 Assignment/PlayerData.csv";
         String line;
@@ -69,6 +81,10 @@ public class Main {
         }
     }
 
+    /**
+     * GENERATE SQL QUERY STRING
+     * @return SQL Query string used for creating table in database
+     */
     private static String generateCreateTableQuery() {
         return "CREATE TABLE " + TABLE_NAME + " (" +
                 "Name VARCHAR(100) NOT NULL, " +
@@ -84,11 +100,19 @@ public class Main {
                 ")";
     }
 
+    /**
+     * GENERATE INSERT SQL QUERY STRING
+     * @return SQL query string used to insert into the table in database
+     */
     private static String generateInsertQuery() {
         return "INSERT INTO " + TABLE_NAME + " (Name, Team, Games, AtBats, Runs, Hits, Doubles, Triples, HomeRuns, RBIs) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
 
+    /**
+     * CREATE NEW CSV
+     * @throws SQLException incase errors occur while creating the csv
+     */
     private static void createNewCSV() throws SQLException {
         String csvFile = "NewCSV.csv";
         String csvSplitBy = ",";
