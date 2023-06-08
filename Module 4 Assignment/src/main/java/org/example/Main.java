@@ -8,17 +8,19 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
+import java.io.FileWriter;
+import java.sql.ResultSet;
+
 
 public class Main {
     private static final String DATABASE_URL = "jdbc:derby:mydb;create=true";
-    private static final String TABLE_NAME = "PLAYERDATA";
+    private static final String TABLE_NAME = "NEW_DATA";
 
     public static void main(String[] args) {
         try {
             createTableInDatabase();
             insertDataIntoDatabase();
+            createNewCSV();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -86,4 +88,40 @@ public class Main {
         return "INSERT INTO " + TABLE_NAME + " (Name, Team, Games, AtBats, Runs, Hits, Doubles, Triples, HomeRuns, RBIs) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     }
+
+    private static void createNewCSV() throws SQLException {
+        String csvFile = "NewCSV.csv";
+        String csvSplitBy = ",";
+
+        try (Connection connection = DriverManager.getConnection(DATABASE_URL);
+             Statement statement = connection.createStatement();
+             FileWriter writer = new FileWriter(csvFile)) {
+
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM PLAYERDATA");
+
+            // Write header line
+            writer.write("Name,Team,Game,AtBats,Runs,Hits,Doubles,Triples,HomeRuns,RBIs\n");
+
+            // Write data rows
+            while (resultSet.next()) {
+                String name = resultSet.getString("Name");
+                String team = resultSet.getString("Team");
+                int g = resultSet.getInt("Games");
+                int ab = resultSet.getInt("AtBats");
+                int r = resultSet.getInt("Runs");
+                int h = resultSet.getInt("Hits");
+                int dbl = resultSet.getInt("Doubles");
+                int tpl = resultSet.getInt("Triples");
+                int hr = resultSet.getInt("HomeRuns");
+                int rbi = resultSet.getInt("RBIs");
+
+                writer.write(name + csvSplitBy + team + csvSplitBy + g + csvSplitBy + ab + csvSplitBy
+                        + r + csvSplitBy + h + csvSplitBy + dbl + csvSplitBy + tpl + csvSplitBy + hr + csvSplitBy + rbi + "\n");
+            }
+            System.out.println("Data exported to CSV successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

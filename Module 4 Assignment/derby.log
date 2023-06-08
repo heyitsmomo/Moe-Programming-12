@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Jun 07 18:35:46 PDT 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0188-98a5-3dc6-0000078d2250 
+Wed Jun 07 19:01:38 PDT 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.15.2.0 - (1873585): instance a816c00e-0188-98bc-ec35-0000078ce230 
 on database directory /Users/moe/IdeaProjects/Module 4 Assignment/mydb with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@251a69d7 
 Loaded from file:/Users/moe/.m2/repository/org/apache/derby/derby/10.15.2.0/derby-10.15.2.0.jar
 java.vendor=Oracle Corporation
